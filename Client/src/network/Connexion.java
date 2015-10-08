@@ -10,7 +10,7 @@ public class Connexion {
 		try
 		{
 			Socket socket;
-			socket = new Socket("192.168.1.13",7008);
+			socket = new Socket("192.168.1.13",7013);
 			System.out.println("Demande de connexion");
 			new Thread(new ConnexionThread(socket)).start();
 		}

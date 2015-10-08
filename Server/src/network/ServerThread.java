@@ -26,7 +26,6 @@ public class ServerThread extends Thread {
 		StringBuilder result = new StringBuilder();
 		
 		try {
-			
 			while(true)
 			{
 				// Init buffers in/out
@@ -35,18 +34,13 @@ public class ServerThread extends Thread {
 				
 				System.out.println("Attente de valeurs");
 				String request = buffIN.readLine();
-				
-				// Porte de sortie du while(true)
 				if(request == null || request.equals("END"))
 					break;
+				System.out.println(request);
 				
-				result.append("\nEND");
-				// ENvoie du résultat au client
-				buffOUT.println(result);
-				System.out.println("Opération done");
-				result.setLength(0);
-			}
-			
+				
+				buffOUT.println("coucou");
+			}	
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -16,7 +16,7 @@ public class Server {
 	public Server()
 	{
 		try {
-			this.myServerSocket = new ServerSocket(7008);
+			this.myServerSocket = new ServerSocket(7013);
 			System.out.println("Server start");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

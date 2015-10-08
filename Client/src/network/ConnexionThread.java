@@ -24,31 +24,42 @@ public class ConnexionThread implements Runnable {
 		
 		try
 		{
+			this.isConnect = true;
 			this.fluxEntree = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 			this.fluxSortie = new PrintWriter(socket.getOutputStream());
 			Scanner sc = new Scanner(System.in);
+			String message = null;
 		
-			while(!isConnect)
+			while(this.isConnect)
 			{
 				// Le serveur demande de se connecter
-				System.out.println(this.fluxEntree.readLine());
+				//System.out.println(this.fluxEntree.readLine());
+			
 				// L'user rentre son login
-				this.fluxSortie.println(sc.nextLine());
+				message = sc.nextLine();
+				this.fluxSortie.println(message);
 				this.fluxSortie.flush();
-				// Le serveur répond son message sous forme d'un boolean
-				boolean reponseConnect = Boolean.parseBoolean(this.fluxEntree.readLine());
-				// S'il est correctement connecté
-					if(reponseConnect) {
-						isConnect = true;
-						System.out.println("Tu es connecté");
-					}
-					else {
-						System.out.println("Le login est incorrect");
-					}
+				System.out.println("Message send");
+				
+				System.out.println(this.fluxEntree.readLine());
+				
+				if(message== null || message.equals("END"))
+					this.isConnect = false;
 			}
 		}
 		catch(IOException e) {
 			System.out.println("[Erreur TC] : "+e.getMessage());
+		}
+		finally
+		{
+			try {
+				this.fluxEntree.close();
+				this.fluxEntree.close();
+				this.socket.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 }
