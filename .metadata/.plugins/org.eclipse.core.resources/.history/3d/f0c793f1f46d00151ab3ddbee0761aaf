@@ -1,0 +1,21 @@
+package metier;
+
+public class Engine {
+
+	private static Engine instance;
+	private Engine()
+	{
+		
+	}
+	
+	public static Engine getInstance() {
+		if(instance == null)
+			instance = new Engine();
+		return instance;
+	}
+	
+	public void start()
+	{
+		
+	}
+}

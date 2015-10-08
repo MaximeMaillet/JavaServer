@@ -1,0 +1,34 @@
+package metier;
+
+import network.Connexion;
+import network.Message;
+import network.Message.TypeMessage;
+
+public class Engine {
+
+	private static Engine instance;
+	private Engine()
+	{
+		
+	}
+	
+	public static Engine getInstance() {
+		if(instance == null)
+			instance = new Engine();
+		return instance;
+	}
+	
+	public void start()
+	{
+		
+	}
+	
+	public void launchChat()
+	{
+		Connexion myConnexion = new Connexion();
+		while(true)
+		{
+			myConnexion.sendMessage(new Message(this.currentFrame.getSpeak().getText(), TypeMessage.MESSAGE));
+		}
+	}
+}

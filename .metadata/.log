@@ -126,3 +126,9 @@ user global configuration and to define the default location to store repositori
 not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
 EGit might behave differently since they see different configuration options.
 This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY org.eclipse.php.debug.core 4 4 2015-10-08 21:36:56.775
+!MESSAGE The debug port 10000 is in use. Please select a different port for the debugger.
+
+!ENTRY org.eclipse.php.debug.core 4 4 2015-10-08 21:36:56.778
+!MESSAGE The debug port 9000 is in use. Please select a different port for the debugger.

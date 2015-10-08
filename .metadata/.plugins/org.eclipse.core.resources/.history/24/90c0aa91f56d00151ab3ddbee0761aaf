@@ -20,10 +20,11 @@ public class Main {
 			@Override
 			public void run() {
 				MainView main = new MainView();
-				main.display();
-				Engine.getInstance().start(main);
+				main.display();				
 			}
 		});
+		
+		Engine.getInstance().start();
 	}
 	
 	public static void setBestLookAndFeelAvailable(){

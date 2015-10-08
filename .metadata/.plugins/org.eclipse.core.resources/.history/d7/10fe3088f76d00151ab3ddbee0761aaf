@@ -5,12 +5,6 @@ import ihm.nographic.ActionDisconnect;
 import ihm.nographic.ActionSend;
 
 import java.awt.Dimension;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.net.Socket;
-import java.net.UnknownHostException;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -19,6 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 
+import network.Connexion;
 import network.Message;
 
 public class MainView extends JFrame {
@@ -43,32 +38,7 @@ public class MainView extends JFrame {
 		bottomPanel.add(this.drawTextPanel());
 	
 		
-		Socket s;
-		try {
-			s = new Socket("192.168.1.13", 7013);
-			System.out.println("Demande de connexion");
-			
-			ObjectOutputStream oos = new ObjectOutputStream(s.getOutputStream());
-
-
-			InputStream is = s.getInputStream();
-			ObjectInputStream ois = new ObjectInputStream(is);
-			Message to = (Message)ois.readObject();
-			if (to!=null)
-			{
-				System.out.println(to.getContent());
-			}
-			
-		} catch (UnknownHostException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
 		
 		
 		

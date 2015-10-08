@@ -2,7 +2,6 @@ package main;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
-import metier.Engine;
 import ihm.graphic.MainView;
 
 /**
@@ -20,8 +19,7 @@ public class Main {
 			@Override
 			public void run() {
 				MainView main = new MainView();
-				main.display();
-				Engine.getInstance().start(main);
+				main.display();				
 			}
 		});
 	}
