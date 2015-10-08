@@ -5,18 +5,42 @@ import java.net.Socket;
 
 public class Connexion {
 
-	public static void main(String[] args)
+	private String ipServer = "192.168.1.13";
+	private int portServer = 7013;
+	private Socket mySocket = null;
+	
+	public Connexion()
 	{
-		try
-		{
-			Socket socket;
-			socket = new Socket("192.168.1.13",7013);
+		try {
+			
+			this.mySocket = new Socket(this.ipServer, this.portServer);
 			System.out.println("Demande de connexion");
-			new Thread(new ConnexionThread(socket)).start();
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		catch (IOException e)
-		{
-			System.out.println("Erreur TC : "+e.getMessage());
+	}
+	
+	public void sendMessage(Message message)
+	{
+		new Thread(new ConnexionThreadSend(this.mySocket, message)).start();
+	}
+	
+	public Message receiveMessage()
+	{
+		Message messReturn = new Message();
+		new Thread(new ConnexionThreadReceive(this.mySocket, messReturn)).start();
+		return messReturn;
+	}
+	
+	public void disconnect()
+	{
+		try {
+			this.mySocket.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 }

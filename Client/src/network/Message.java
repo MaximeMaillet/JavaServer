@@ -1,0 +1,39 @@
+package network;
+
+public class Message {
+
+	private String content;
+	private TypeMessage type;
+	
+	public Message() {
+		this.content = "";
+		this.type = TypeMessage.MESSAGE;
+	}
+	
+	public Message(String content, TypeMessage type) {
+		super();
+		this.content = content;
+		this.type = type;
+	}
+
+	public String getContent() {
+		return content;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
+	}
+
+	public TypeMessage getType() {
+		return type;
+	}
+
+	public void setType(TypeMessage type) {
+		this.type = type;
+	}
+
+	public enum TypeMessage
+	{
+		CONNECT, DISCONNECT, MESSAGE
+	}
+}

@@ -8,58 +8,43 @@ import java.net.Socket;
 import java.util.Scanner;
 
 public class ConnexionThread implements Runnable {
-	
-	private boolean isConnect = false;
+
 	private Socket socket;
-	private BufferedReader fluxEntree;
-	private PrintWriter fluxSortie;
+	protected BufferedReader fluxEntree;
+	protected PrintWriter fluxSortie;
+	protected Message message;
 	
-	public ConnexionThread(Socket sock)
+	public ConnexionThread(Socket sock, Message _message)
 	{
 		this.socket = sock;
+		this.message = _message;
+		try {
+			
+			this.fluxEntree = new BufferedReader(new InputStreamReader(this.socket.getInputStream()));
+			this.fluxSortie = new PrintWriter(this.socket.getOutputStream());
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
-	
+
 	@Override
 	public void run() {
+		// TODO Auto-generated method stub
 		
-		try
-		{
-			this.isConnect = true;
-			this.fluxEntree = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-			this.fluxSortie = new PrintWriter(socket.getOutputStream());
-			Scanner sc = new Scanner(System.in);
-			String message = null;
-		
-			while(this.isConnect)
-			{
-				// Le serveur demande de se connecter
-				//System.out.println(this.fluxEntree.readLine());
+	}
+	
+	public void close()
+	{
+		try {
 			
-				// L'user rentre son login
-				message = sc.nextLine();
-				this.fluxSortie.println(message);
-				this.fluxSortie.flush();
-				System.out.println("Message send");
-				
-				System.out.println(this.fluxEntree.readLine());
-				
-				if(message== null || message.equals("END"))
-					this.isConnect = false;
-			}
-		}
-		catch(IOException e) {
-			System.out.println("[Erreur TC] : "+e.getMessage());
-		}
-		finally
-		{
-			try {
-				this.fluxEntree.close();
-				this.fluxEntree.close();
-				this.socket.close();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			this.fluxEntree.close();
+			this.fluxSortie.close();
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 }
