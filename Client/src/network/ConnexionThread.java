@@ -1,32 +1,33 @@
 package network;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.Socket;
-import java.util.Scanner;
 
 public class ConnexionThread implements Runnable {
 
 	private Socket socket;
-	protected BufferedReader fluxEntree;
-	protected PrintWriter fluxSortie;
+	protected ObjectInputStream fluxEntree;
+	protected ObjectOutputStream fluxSortie;
 	protected Message message;
 	
 	public ConnexionThread(Socket sock, Message _message)
 	{
 		this.socket = sock;
 		this.message = _message;
+		
 		try {
 			
-			this.fluxEntree = new BufferedReader(new InputStreamReader(this.socket.getInputStream()));
-			this.fluxSortie = new PrintWriter(this.socket.getOutputStream());
+			this.fluxSortie = new ObjectOutputStream(this.socket.getOutputStream());
+			this.fluxEntree = new ObjectInputStream(this.socket.getInputStream());
 			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
+			System.out.println(e.getMessage());
 			e.printStackTrace();
 		}
+		
 	}
 
 	@Override
