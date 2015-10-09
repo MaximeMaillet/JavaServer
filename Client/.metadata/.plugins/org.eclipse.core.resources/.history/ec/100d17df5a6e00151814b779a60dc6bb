@@ -1,7 +1,0 @@
-package metier;
-
-import java.util.Observable;
-
-public class ListMessage extends Observable {
-
-}
