@@ -1,0 +1,67 @@
+package network;
+
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.net.Socket;
+
+import metier.Engine;
+import network.Message.TypeMessage;
+
+/**
+* Classe permettant d'accueilir dans un thread une nouvelle connexion au serveur
+*/
+public class ServerThread extends Thread {
+
+	private Socket mySocket;
+	
+	public ServerThread(Socket _s) {
+		this.mySocket = _s;
+	}
+	
+	@Override
+	public void run() {
+		super.run();
+		
+		ObjectInputStream buffIN = null;
+		ObjectOutputStream buffOUT = null;
+		try {
+			buffIN = new ObjectInputStream(this.mySocket.getInputStream());
+			buffOUT = new ObjectOutputStream(this.mySocket.getOutputStream());
+			Message mess = (Message)buffIN.readObject();
+
+			System.out.println("La "+mess.getContent());
+			
+			if (mess != null) {
+				
+				if(mess.getType().equals(TypeMessage.LISTEN))
+				{
+					Message m = new Message("test", TypeMessage.MESSAGE);
+					buffOUT.writeObject(m);
+				}
+				else if(mess.getType().equals(TypeMessage.MESSAGE))
+					Engine.getInstance().writeMessage(mess.getContent());
+				
+			}
+			else {
+				System.out.println("Message not received");
+			}
+			
+		} catch (IOException | ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		finally
+		{
+			try {
+				buffIN.close();
+				this.mySocket.close();
+				System.out.println("Client déconnecté");
+				
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+}

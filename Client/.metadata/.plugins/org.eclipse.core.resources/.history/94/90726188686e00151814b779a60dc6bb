@@ -1,0 +1,29 @@
+package metier;
+
+import java.util.Observable;
+import java.util.Observer;
+
+public class Engine extends Observable {
+
+	private static Engine instance;
+	private Engine()
+	{
+		
+	}
+	
+	public static Engine getInstance() {
+		if(instance==null)
+			instance = new Engine();
+		return instance;
+	}
+	
+	private ListMessage listMessages;
+	
+	public void initListMessage(Observer _obs) {
+		listMessages = new ListMessage(_obs);
+	}
+	
+	public void writeMessage(String mess) {
+		this.listMessages.add(mess);
+	}
+}

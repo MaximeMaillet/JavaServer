@@ -1,8 +1,8 @@
 package metier;
 
-import java.util.ArrayList;
+import java.util.Observable;
 
-public class Engine {
+public class Engine extends Observable {
 
 	private static Engine instance;
 	private Engine()
@@ -16,6 +16,8 @@ public class Engine {
 		return instance;
 	}
 	
-	private ArrayList<String> listMessages;
-	
+	public void writeMessage(String mess) {
+		setChanged();
+		notifyObservers(mess);
+	}
 }
