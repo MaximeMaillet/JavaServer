@@ -24,14 +24,21 @@ public class Engine extends Observable {
 	
 	public void start(MainView m) {
 		this.mainframe = m;
+<<<<<<< HEAD
+		launchChat();
+=======
 		this.launchChat();
+>>>>>>> 855ae651b69aaccc0be4ece660d69042e8472158
 	}
 	
 	public void launchChat()
 	{
 		Connexion myConnexion = new Connexion();
+<<<<<<< HEAD
 		Message _m = myConnexion.receiveMessage();
 		this.mainframe.addMessage(_m);
+		
+=======
 		//On écoute les messages entrants puis on les ajoutes
 		myConnexion.listen();
 	}
