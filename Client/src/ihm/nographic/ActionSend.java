@@ -26,6 +26,5 @@ public class ActionSend extends AbstractAction {
 	public void actionPerformed(ActionEvent e) {
 		Connexion myConnexion = new Connexion();
 		myConnexion.sendMessage(new Message(this.currentFrame.getSpeak().getText(), TypeMessage.MESSAGE));
-		//myConnexion.disconnect();
 	}
 }

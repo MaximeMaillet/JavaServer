@@ -14,8 +14,12 @@ public class ConnexionThreadSend extends ConnexionThread {
 		super.run();
 		try
 		{
-			this.fluxSortie.println(this.message.getContent());
+			this.fluxSortie.writeObject(this.message);
 			this.fluxSortie.flush();
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		finally
 		{

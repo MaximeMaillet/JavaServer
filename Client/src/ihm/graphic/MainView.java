@@ -3,6 +3,7 @@ package ihm.graphic;
 import ihm.nographic.ActionConnect;
 import ihm.nographic.ActionDisconnect;
 import ihm.nographic.ActionSend;
+import metier.Engine;
 
 import java.awt.Dimension;
 import java.io.IOException;
@@ -29,7 +30,7 @@ public class MainView extends JFrame {
 	private JButton butt_disconnect = new JButton(new ActionDisconnect());
 	private JButton butt_send = new JButton(new ActionSend(this));
 	private JTextField text_speak = new JTextField();
-	private JTextPane text_panel = new JTextPane();
+	private PanelMessage text_panel = new PanelMessage();
 
 	public MainView()
 	{
@@ -41,54 +42,13 @@ public class MainView extends JFrame {
 		topPanel.add(this.drawMainPanel());
 		JPanel bottomPanel = new JPanel();
 		bottomPanel.add(this.drawTextPanel());
-	
-		
-		Socket s;
-		try {
-			s = new Socket("192.168.1.13", 7013);
-			System.out.println("Demande de connexion");
-			
-			ObjectOutputStream oos = new ObjectOutputStream(s.getOutputStream());
 
-
-			InputStream is = s.getInputStream();
-			ObjectInputStream ois = new ObjectInputStream(is);
-			Message to = (Message)ois.readObject();
-			if (to!=null)
-			{
-				System.out.println(to.getContent());
-			}
-			
-		} catch (UnknownHostException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		
-		
-		
-		
-		
 		this.add(topPanel);
 		this.add(bottomPanel);
 	}
 	
 	public JTextField getSpeak() {
 		return text_speak;
-	}
-
-	public JTextPane getPanel() {
-		return text_panel;
-	}
-	
-	public void addMessage(Message m) {
-		this.text_panel.setText(m.getContent());;
 	}
 
 	public JPanel drawLeftPanel()
@@ -102,10 +62,8 @@ public class MainView extends JFrame {
 	
 	public JPanel drawMainPanel()
 	{
-		JPanel result = new JPanel();
-		text_panel.setPreferredSize(new Dimension(500, 250));
-		result.add(text_panel);
-		return result;
+		Engine.getInstance().addObserver(this.text_panel);
+		return this.text_panel;
 	}
 	
 	public JPanel drawTextPanel()

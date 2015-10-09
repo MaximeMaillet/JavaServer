@@ -1,10 +1,13 @@
 package metier;
 
+import java.util.Observable;
+import java.util.Observer;
+
 import ihm.graphic.MainView;
 import network.Connexion;
 import network.Message;
 
-public class Engine {
+public class Engine extends Observable {
 
 	private static Engine instance;
 	private MainView mainframe;
@@ -21,15 +24,18 @@ public class Engine {
 	
 	public void start(MainView m) {
 		this.mainframe = m;
+		this.launchChat();
 	}
 	
 	public void launchChat()
 	{
 		Connexion myConnexion = new Connexion();
-		while(true)
-		{
-			Message _m = myConnexion.receiveMessage();
-			this.mainframe.addMessage(_m);
-		}
+		//On écoute les messages entrants puis on les ajoutes
+		myConnexion.listen();
+	}
+	
+	public void addMessage(Message m) {
+		setChanged();
+		notifyObservers(m.getContent());
 	}
 }
