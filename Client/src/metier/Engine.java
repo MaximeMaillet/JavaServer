@@ -30,8 +30,6 @@ public class Engine extends Observable {
 	public void launchChat()
 	{
 		Connexion myConnexion = new Connexion();
-		Message _m = myConnexion.receiveMessage();
-		this.mainframe.addMessage(_m);
 		//On écoute les messages entrants puis on les ajoutes
 		myConnexion.listen();
 	}
@@ -39,6 +37,5 @@ public class Engine extends Observable {
 	public void addMessage(Message m) {
 		setChanged();
 		notifyObservers(m.getContent());
->>>>>>> 855ae651b69aaccc0be4ece660d69042e8472158
 	}
 }
