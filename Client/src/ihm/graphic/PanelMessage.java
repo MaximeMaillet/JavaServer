@@ -21,7 +21,7 @@ public class PanelMessage extends JPanel implements Observer {
 		listModel = new DefaultListModel<String>();
 		text_panel = new JList(listModel);
 		scrollpane = new JScrollPane(text_panel);
-		this.scrollpane.setPreferredSize(new Dimension(400,70));
+		this.scrollpane.setPreferredSize(new Dimension(500,400));
 		this.add(scrollpane);
 	}
 	
@@ -33,7 +33,7 @@ public class PanelMessage extends JPanel implements Observer {
 		this.scrollpane.scrollRectToVisible(new Rectangle(0, 100, 400, 70));
 	}
 
-	public JList getPanel() {
+	public JList<String> getPanel() {
 		return text_panel;
 	}
 

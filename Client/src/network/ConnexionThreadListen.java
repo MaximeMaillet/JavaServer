@@ -18,10 +18,7 @@ public class ConnexionThreadListen extends ConnexionThread {
 		System.out.print("k");
 		try
 		{
-			
-			System.out.println("bef");
 			this.fluxSortie.writeObject(new Message(null, TypeMessage.LISTEN));
-			System.out.println("aff");
 			
 			while(true)
 			{
