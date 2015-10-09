@@ -21,15 +21,14 @@ public class Engine {
 	
 	public void start(MainView m) {
 		this.mainframe = m;
+		launchChat();
 	}
 	
 	public void launchChat()
 	{
 		Connexion myConnexion = new Connexion();
-		while(true)
-		{
-			Message _m = myConnexion.receiveMessage();
-			this.mainframe.addMessage(_m);
-		}
+		Message _m = myConnexion.receiveMessage();
+		this.mainframe.addMessage(_m);
+		
 	}
 }
